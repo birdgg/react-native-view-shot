@@ -203,11 +203,13 @@ public class ViewShot implements UIBlock {
         final FileOutputStream fos = new FileOutputStream(output);
         captureView(view, fos);
 
-        promise.resolve(Uri.fromFile(output).toString());
+        promise.resolve(output.getAbsolutePath());
+        // promise.resolve(Uri.fromFile(output).toString());
     }
 
     private void saveToRawFileOnDevice(@NonNull final View view) throws IOException {
-        final String uri = Uri.fromFile(output).toString();
+        // final String uri = Uri.fromFile(output).toString();
+        final String uri = output.getAbsolutePath();
 
         final FileOutputStream fos = new FileOutputStream(output);
         final ReusableByteArrayOutputStream os = new ReusableByteArrayOutputStream(outputBuffer);

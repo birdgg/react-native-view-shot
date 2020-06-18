@@ -164,22 +164,27 @@ public class RNViewShotModule extends ReactContextBaseJavaModule {
      */
     @NonNull
     private File createTempFile(@NonNull final Context context, @NonNull final String ext) throws IOException {
-        final File externalCacheDir = context.getExternalCacheDir();
-        final File internalCacheDir = context.getCacheDir();
-        final File cacheDir;
-
-        if (externalCacheDir == null && internalCacheDir == null) {
+          final File cacheDir = context.getExternalCacheDir();
+          if(cacheDir == null) {
             throw new IOException("No cache directory available");
-        }
+          }
+//        final File externalCacheDir = context.getExternalCacheDir();
+//        final File internalCacheDir = context.getCacheDir();
+//        final File cacheDir;
+//
+//        if (externalCacheDir == null && internalCacheDir == null) {
+//            throw new IOException("No cache directory available");
+//        }
+//
+//        if (externalCacheDir == null) {
+//            cacheDir = internalCacheDir;
+//        } else if (internalCacheDir == null) {
+//            cacheDir = externalCacheDir;
+//        } else {
+//            cacheDir = externalCacheDir.getFreeSpace() > internalCacheDir.getFreeSpace() ?
+//                    externalCacheDir : internalCacheDir;
+//        }
 
-        if (externalCacheDir == null) {
-            cacheDir = internalCacheDir;
-        } else if (internalCacheDir == null) {
-            cacheDir = externalCacheDir;
-        } else {
-            cacheDir = externalCacheDir.getFreeSpace() > internalCacheDir.getFreeSpace() ?
-                    externalCacheDir : internalCacheDir;
-        }
 
         final String suffix = "." + ext;
         return File.createTempFile(TEMP_FILE_PREFIX, suffix, cacheDir);
